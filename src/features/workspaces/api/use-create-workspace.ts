@@ -7,7 +7,7 @@ type RequestType = {
   name: string;
 };
 
-type ResponseType = Id<"workspace"> | null;
+type ResponseType = Id<"workspaces"> | null;
 
 type Options = {
   onSuccess?: (data: ResponseType) => void;

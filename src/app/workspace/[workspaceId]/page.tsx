@@ -1,17 +1,13 @@
-import { UserButton } from "@/features/auth/components/user-button";
+"use client";
 
-type WorkspaceIdPageProps = {
-  params: {
-    workspaceId: string;
-  };
-};
+import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 
-const WorkspaceIdPage = ({}: WorkspaceIdPageProps) => {
-  <div>
-    dgcv Logged in!
-    <UserButton />
-    clo
-  </div>;
+const WorkspaceIdPage = () => {
+  const { id } = useWorkspaceId();
+  const { data } = useGetWorkspace(id);
+
+  return <div>Workspace: {data?.name}</div>;
 };
 
 export default WorkspaceIdPage;

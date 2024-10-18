@@ -27,9 +27,7 @@ const HomePage = () => {
 
   return (
     <div>
-      dgcv Logged in!
       <UserButton />
-      clo
     </div>
   );
 };

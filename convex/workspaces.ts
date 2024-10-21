@@ -29,7 +29,9 @@ export const get = query({
     for (const workspaceId of workspaceIds) {
       const workspace = await ctx.db.get(workspaceId);
 
-      workspaces.push(workspace);
+      if (workspace) {
+        workspaces.push(workspace);
+      }
     }
 
     return workspaces;

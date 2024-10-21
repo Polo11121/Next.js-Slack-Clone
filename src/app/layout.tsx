@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
+import { JotaiProvider } from "@/components/jotai-provider";
 import { Modals } from "@/components/modals";
 import { Toaster } from "@/components/ui/sonner";
 import localFont from "next/font/local";
@@ -34,9 +35,11 @@ const RootLayout = ({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ConvexClientProvider>
-          {children}
-          <Modals />
-          <Toaster />
+          <JotaiProvider>
+            {children}
+            <Modals />
+            <Toaster />
+          </JotaiProvider>
         </ConvexClientProvider>
       </body>
     </html>

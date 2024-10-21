@@ -10,13 +10,13 @@ import {
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
 import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
-import { useCreateWorkspaceModal } from "../store/use-create-workspace-modal";
+import { useCreateWorkspaceModal } from "@/features/workspaces/store/use-create-workspace-modal";
 import { Loader, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export const WorkspaceSwitcher = () => {
   const { id } = useWorkspaceId();
-  const { data: workspace, isLoading: isWorkspaceLoading } =
+  const { data: activeWorkspace, isLoading: isWorkspaceLoading } =
     useGetWorkspace(id);
   const { data: workspaces } = useGetWorkspaces();
   const { open } = useCreateWorkspaceModal();
@@ -25,7 +25,9 @@ export const WorkspaceSwitcher = () => {
   const filteredWorkspaces = workspaces?.filter(
     (workspace) => workspace._id !== id
   );
-  const activeWorkspaceFirstLetter = workspace?.name.charAt(0).toUpperCase();
+  const activeWorkspaceFirstLetter = activeWorkspace?.name
+    .charAt(0)
+    .toUpperCase();
 
   const goToActiveWorkspace = () => router.push(`/workspaces/${id}`);
 
@@ -45,12 +47,12 @@ export const WorkspaceSwitcher = () => {
           className="cursor-pointer flex-col justify-start items-center capitalize"
           onClick={goToActiveWorkspace}
         >
-          {workspace?.name}
+          {activeWorkspace?.name}
           <span className="text-xs text-muted-foreground">
             Active Workspace
           </span>
         </DropdownMenuItem>
-        {filteredWorkspaces?.map(({ _id, name }) => {
+        {filteredWorkspaces?.map(({ name, _id }) => {
           const goToWorkspace = () => router.push(`/workspaces/${_id}`);
           const workspaceFirstLetter = name.charAt(0).toUpperCase();
 

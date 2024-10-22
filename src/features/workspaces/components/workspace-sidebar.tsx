@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { useCurrentMember } from "@/features/members/api/use-get-current-member";
 import { useGetWorkspace } from "@/features/workspaces//api/use-get-workspace";

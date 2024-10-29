@@ -1,0 +1,47 @@
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
+import { cva, type VariantProps } from "class-variance-authority";
+import { Button } from "@/components/ui/button";
+import { LucideIcon } from "lucide-react";
+import { IconType } from "react-icons/lib";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+
+const sidebarItemVariants = cva(
+  "flex items-center gap-1.5 justify-start font-normal h-7 px-[18px] text-sm overflow-hidden",
+  {
+    variants: {
+      variant: {
+        default: "text-[#f9edffcc]",
+        active: "text-[#481349] bg-white/90 hover:bg-white/90",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
+
+type SidebarItemProps = {
+  label: string;
+  id: string;
+  Icon: LucideIcon | IconType;
+  variant?: VariantProps<typeof sidebarItemVariants>["variant"];
+};
+
+export const SidebarItem = ({ label, Icon, id, variant }: SidebarItemProps) => {
+  const { id: workspaceId } = useWorkspaceId();
+
+  return (
+    <Button
+      asChild
+      variant="transparent"
+      className={cn(sidebarItemVariants({ variant }))}
+      size="sm"
+    >
+      <Link href={`/workspace/${workspaceId}/channel/${id}`}>
+        <Icon className="size-3.5 mr-1 shrink-0" />
+        <span className="text-sm truncate">{label}</span>
+      </Link>
+    </Button>
+  );
+};
